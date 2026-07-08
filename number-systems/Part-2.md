@@ -8,15 +8,17 @@ The answers to these questions will require a bit of explanation, not just a sim
 
 Q16: How can you test if a binary number is a power of two (e.g. 1, 2, 4, 8, 16, ...)?
 Answer:
+A binary number is a power of two if it contains exactly one 1 bit.
 
 Q17: If reading the byte 0x21 as an ASCII character, what character would it mean?
 Answer:
-
+!
 Q18: If reading the byte 0x21 as a greyscale colour, as described in "Approaches for Representing Colors and Images", what colour would it mean?
 Answer:
-
+Dark grey (so close to black)
 Q19: If reading the bytes 0xAA00FF as a sequence of three one-byte decimal numbers, what decimal numbers would they be?
 Answer:
-
+170 0 250
 Q20: If reading the bytes 0xAA00FF as an RGB colour, as described in "Approaches for Representing Colors and Images", what colour would it mean?
 Answer:
+A bright purple
