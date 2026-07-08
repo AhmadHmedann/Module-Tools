@@ -18,7 +18,7 @@ Answer:
 Dark grey (so close to black)
 Q19: If reading the bytes 0xAA00FF as a sequence of three one-byte decimal numbers, what decimal numbers would they be?
 Answer:
-170 0 250
+170 0 255
 Q20: If reading the bytes 0xAA00FF as an RGB colour, as described in "Approaches for Representing Colors and Images", what colour would it mean?
 Answer:
 A bright purple
