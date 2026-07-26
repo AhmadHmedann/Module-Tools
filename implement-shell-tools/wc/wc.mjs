@@ -14,12 +14,9 @@ program.parse();
 
 const paths = program.args;
 const options = program.opts();
+const noFlag = !options.l && !options.w && !options.c;
 
-const total = {
-  linesCounter: 0,
-  wordsCounter: 0,
-  characterCounter: 0,
-};
+const total = {};
 let hadError = false;
 for (const path of paths) {
   try {
@@ -31,39 +28,31 @@ for (const path of paths) {
       trimmedContent === "" ? 0 : trimmedContent.split(/\s+/).length;
     const characterCounter = content.length;
 
-    total.linesCounter += linesCounter;
-    total.wordsCounter += wordsCounter;
-    total.characterCounter += characterCounter;
-
-    let results = [];
-    if (options.l) results.push(linesCounter);
-    if (options.w) results.push(wordsCounter);
-    if (options.c) results.push(characterCounter);
-
-    if (!options.l && !options.w && !options.c)
-      console.log(
-        ` ${linesCounter}  ${wordsCounter} ${characterCounter} ${path}`,
-      );
-    else {
-      console.log(results.join(" ") + " " + path);
+    const results = [];
+    if (options.l || noFlag) {
+      results.push(linesCounter);
+      total["lineCounter"] = (total["lineCounter"] ?? 0) + linesCounter;
     }
+    if (options.w || noFlag) {
+      results.push(wordsCounter);
+      total["wordsCounter"] = (total["wordsCounter"] ?? 0) + wordsCounter;
+    }
+    if (options.c || noFlag) {
+      results.push(characterCounter);
+      total["characterCounter"] =
+        (total["characterCounter"] ?? 0) + characterCounter;
+    }
+
+      console.log(results.join(" ") + " " + path);
+  
   } catch (error) {
     console.error(error.message);
     hadError = true;
   }
 }
 if (paths.length > 1) {
-  if (!options.l && !options.w && !options.c) {
-    console.log(
-      ` ${total.linesCounter}  ${total.wordsCounter} ${total.characterCounter} total`,
-    );
-  } else {
-    const totalWithFlags = [];
-    if (options.l) totalWithFlags.push(total.linesCounter);
-    if (options.w) totalWithFlags.push(total.wordsCounter);
-    if (options.c) totalWithFlags.push(total.characterCounter);
-    console.log(totalWithFlags.join(" ") + " total");
-  }
+
+  console.log(Object.values(total).join(" "),"total")
 }
 if (hadError) {
   process.exitCode = 1;
