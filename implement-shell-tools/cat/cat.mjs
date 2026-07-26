@@ -1,4 +1,4 @@
-import { promises as fs } from "node:fs";  
+import { promises as fs } from "node:fs";
 import { program } from "commander";
 
 program
@@ -13,7 +13,7 @@ const paths = program.args;
 const options = program.opts();
 
 let lineNumber = 1;
-
+let hadError = false;
 for (const path of paths) {
   try {
     const content = await fs.readFile(path, "utf-8");
@@ -39,7 +39,7 @@ for (const path of paths) {
       }
 
       for (const line of lines) {
-        process.stdout.write(`     ${lineNumber} ${line}\n`);
+        process.stdout.write(`${String(lineNumber).padStart(6)}\t ${line}\n`);
         lineNumber++;
       }
     } else {
@@ -47,5 +47,9 @@ for (const path of paths) {
     }
   } catch (error) {
     console.error(error.message);
+    hadError = true;
   }
+}
+if (hadError) {
+  process.exitCode = 1;
 }
