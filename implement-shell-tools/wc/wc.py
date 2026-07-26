@@ -1,21 +1,20 @@
 import argparse
 
-parser = argparse.ArgumentParser(prog= "wc",
-                                 description="Count lines, words, and characters in one or more files.")
+parser = argparse.ArgumentParser(
+    prog="wc", description="Count lines, words, and characters in one or more files."
+)
 
-parser.add_argument("-c",action="store_true",help="Count the number of characters.")
-parser.add_argument("-w",action="store_true", help="Count the number of words.")
-parser.add_argument("-l",action="store_true",help="Count the number of lines.")
-parser.add_argument("paths",nargs="+",help="Path(s) to the file(s) to process.")
-
-
-total_results = {
-   
-}
+parser.add_argument("-c", action="store_true", help="Count the number of characters.")
+parser.add_argument("-w", action="store_true", help="Count the number of words.")
+parser.add_argument("-l", action="store_true", help="Count the number of lines.")
+parser.add_argument("paths", nargs="+", help="Path(s) to the file(s) to process.")
 
 
-args =parser.parse_args()
-paths= args.paths;
+total_results = {}
+
+
+args = parser.parse_args()
+paths = args.paths
 no_flags = not args.c and not args.w and not args.l
 
 for path in paths:
@@ -44,4 +43,3 @@ for path in paths:
 
 if len(paths) > 1:
     print(" ".join(map(str, total_results.values())), "total")
-    
