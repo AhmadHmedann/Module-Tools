@@ -97,14 +97,20 @@ def read_operating_system() -> OperatingSystem:
               1.Ubuntu
               2,Arch Linux
               3.macOs""")
-    choice: int = int(input("Enter Your choice[1-3]: "))
-    while choice < 1 or choice > 3:
-        choice = int(input("Enter Your choice[1-3]: "))
+  
+    while True:
+        try:
+            choice = int(input("Enter Your choice[1-3]: "))
+            if 1 <= choice <= 3:
+              break
+        except ValueError:
+            print("please enter a valid number.")
+            
     os_map: dict[int, OperatingSystem] = {
-        1: OperatingSystem.UBUNTU,
-        2: OperatingSystem.ARCH,
-        3: OperatingSystem.MACOS,
-    }
+            1: OperatingSystem.UBUNTU,
+            2: OperatingSystem.ARCH,
+            3: OperatingSystem.MACOS,
+        }
     return os_map[choice]
 
 
