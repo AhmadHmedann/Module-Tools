@@ -17,30 +17,26 @@ let hadError = false;
 for (const path of paths) {
   try {
     const content = await fs.readFile(path, "utf-8");
-    if (options.b) {
+    if (options.n || options.b) {
       const lines = content.split("\n");
-
       if (lines[lines.length - 1] === "") {
         lines.pop();
       }
-      for (const line of lines) {
-        if (line.trim() !== "") {
-          process.stdout.write(`     ${lineNumber} ${line}\n`);
-          lineNumber++;
-        } else {
-          process.stdout.write("\n");
+
+      if (options.b) {
+        for (const line of lines) {
+          if (line.trim() !== "") {
+            process.stdout.write(`     ${lineNumber} ${line}\n`);
+            lineNumber++;
+          } else {
+            process.stdout.write("\n");
+          }
         }
-      }
-    } else if (options.n) {
-      const lines = content.split("\n");
-
-      if (lines[lines.length - 1] === "") {
-        lines.pop();
-      }
-
-      for (const line of lines) {
-        process.stdout.write(`${String(lineNumber).padStart(6)}\t ${line}\n`);
-        lineNumber++;
+      } else if (options.n) {
+        for (const line of lines) {
+          process.stdout.write(`${String(lineNumber).padStart(6)}\t ${line}\n`);
+          lineNumber++;
+        }
       }
     } else {
       process.stdout.write(content);
