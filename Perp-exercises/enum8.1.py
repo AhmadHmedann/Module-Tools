@@ -112,11 +112,19 @@ def read_operating_system() -> OperatingSystem:
             3: OperatingSystem.MACOS,
         }
     return os_map[choice]
-
+def read_valid_number(message:str)->int:
+    
+    while True:
+        try:
+         num = int(input(message))
+         return num
+        except ValueError:
+            print("Please enter a valid number.")
+            
 
 def main() -> None:
     name: str = input("Name: ")
-    age: int = int(input("Age: "))
+    age: int = read_valid_number("Age: ")
     preferred_operating_system: OperatingSystem = read_operating_system()
     person1: Person = Person(name, age, preferred_operating_system)
 
