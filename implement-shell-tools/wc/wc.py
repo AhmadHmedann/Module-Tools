@@ -39,7 +39,10 @@ for path in paths:
     for key, value in results.items():
         total_results[key] = total_results.get(key, 0) + value
 
-    print(" ".join(map(str, results.values())), path)
+    # print(" ".join(map(str, results.values())), path)
+    print(" ".join(f"{value:>4}" for value in results.values()),"   ",path)
 
 if len(paths) > 1:
-    print(" ".join(map(str, total_results.values())), "total")
+    # print(" ".join(map(str, total_results.values())), "total")
+    print(" ".join(f"{value:>4}" for value in total_results.values())," total")
+    
