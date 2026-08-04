@@ -92,33 +92,51 @@ def most_available_operating_system(
     return most_available
 
 
-def main() -> None:
-    name: str = input("Name: ")
-    age: int = int(input("Age: "))
-
+def read_operating_system() -> OperatingSystem:
     print("""choose an operating system:
-          1.Ubuntu
-          2,Arch Linux
-          3.macOs""")
-    choice: int = int(input("Enter Your choice: "))
+              1.Ubuntu
+              2,Arch Linux
+              3.macOs""")
+    choice: int = int(input("Enter Your choice[1-3]: "))
+    while choice < 1 or choice > 3:
+        choice = int(input("Enter Your choice[1-3]: "))
     os_map: dict[int, OperatingSystem] = {
         1: OperatingSystem.UBUNTU,
         2: OperatingSystem.ARCH,
         3: OperatingSystem.MACOS,
     }
+    return os_map[choice]
 
-    preferred_operating_system: OperatingSystem = os_map[choice]
 
+def main() -> None:
+    name: str = input("Name: ")
+    age: int = int(input("Age: "))
+    preferred_operating_system: OperatingSystem = read_operating_system()
     person1: Person = Person(name, age, preferred_operating_system)
 
     laptops_by_operating_system = group_laptops_by_operating_system(laptops)
     matching_laptop_count: int = how_many_match(person1, laptops_by_operating_system)
     print("We have", matching_laptop_count, "matches")
+
     most_available_os: OperatingSystem = most_available_operating_system(
         laptops_by_operating_system
     )
+    choice: OperatingSystem = person1.preferred_operating_system
     if person1.preferred_operating_system != most_available_os:
-        print("Are you willing to accept ", most_available_os.value, "instead")
+        confirm = input(
+            "Are you willing to accept " f"{most_available_os.value} instead? Y/N: "
+        )
+        if confirm.lower() == "y":
+            choice = most_available_os
+
+    if not choice:
+        print("No laptops are available for that operating system.")
+        return
+    rented_laptops: list[Laptop] = []
+
+    rented_out: Laptop = laptops_by_operating_system[choice].pop()
+    rented_laptops.append(rented_out)
+   
 
 
 if __name__ == "__main__":
