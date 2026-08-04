@@ -43,7 +43,7 @@ for (const path of paths) {
         (total["characterCounter"] ?? 0) + characterCounter;
     }
 
-      console.log(results.join(" ") + " " + path);
+     console.log(results.map(value=> String(value).padStart(4)).join(" ") +"    "+ path)
   
   } catch (error) {
     console.error(error.message);
@@ -52,7 +52,8 @@ for (const path of paths) {
 }
 if (paths.length > 1) {
 
-  console.log(Object.values(total).join(" "),"total")
+  console.log(Object.values(total).map(value=> String(value).padStart(4)).join(" "),"total")
+  
 }
 if (hadError) {
   process.exitCode = 1;
