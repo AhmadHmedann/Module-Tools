@@ -13,19 +13,17 @@ const path = program.args[0] || ".";
 const options = program.opts();
 try {
   const files = await fs.readdir(path);
-
-  for (const file of files) {
-    if (options.a || !file.startsWith(".")) {
-      process.stdout.write(file);
-      if (options.onePerLine) {
-        process.stdout.write("\n");
-      } else {
-        process.stdout.write("  ");
-      }
-    }
+  console.log(files)
+  const visibleFiles = files.filter(
+    (file) => options.a || !file.startsWith("."),
+  );
+  if(options.onePerLine)
+  {
+    console.log(visibleFiles.join("\n"))
+  }else{
+    console.log(visibleFiles.join("     "))
   }
+  
 } catch (error) {
   console.error(error.message);
 }
-if(!options.onePerLine)
-console.log()
