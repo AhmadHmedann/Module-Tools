@@ -16,9 +16,16 @@ try {
 
   for (const file of files) {
     if (options.a || !file.startsWith(".")) {
-      console.log(file);
+      process.stdout.write(file);
+      if (options.onePerLine) {
+        process.stdout.write("\n");
+      } else {
+        process.stdout.write("  ");
+      }
     }
   }
 } catch (error) {
   console.error(error.message);
 }
+if(!options.onePerLine)
+console.log()
