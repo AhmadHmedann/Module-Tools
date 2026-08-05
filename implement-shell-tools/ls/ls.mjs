@@ -13,7 +13,6 @@ const path = program.args[0] || ".";
 const options = program.opts();
 try {
   const files = await fs.readdir(path);
-  console.log(files)
   const visibleFiles = files.filter(
     (file) => options.a || !file.startsWith("."),
   );
